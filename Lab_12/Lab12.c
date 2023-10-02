@@ -1,94 +1,97 @@
-#include<stdio.h>
-
-#include<conio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 int max[100][100];
-
 int alloc[100][100];
-
 int need[100][100];
-
 int avail[100];
+int n, r;
 
-int n,r;
+void input(); // Declare input function
+void show();  // Declare input function
+void cal();   // Declare input function
 
-void input(); //declare input function
-
-void show(); //declare input function
-
-void cal();  //declare input function
-
-int main() //main function
-
+int main() // Main function
 {
+    int i, j;
+    int choice;
 
-     int i,j;
+    printf("********** Banker's Algorithm ************\n");
 
-     printf("********** Banker's Algorithm ************\n");
+    printf("Choose an option:\n");
+    printf("1. Optional\n");
+    printf("2. Random\n");
+    printf("Enter your choice (1/2): ");
+    scanf("%d", &choice);
 
-     input();
+    switch (choice) {
+        case 1:
+            input();
+            break;
+        case 2:
+            // Generate random values for matrices and resources
+            int thang_sinh = 11;
+            int ngay_sinh  = 7;
+            int N = thang_sinh + ngay_sinh;
 
-     show();
+            r = 2 + (N % 3);
+            n = 3 + (N % 3);
 
-     cal();
+            int k = 15 + (N % 7);
 
-     getch();
+            srand(time(NULL)); // Seed for random numbers
 
-     return 0;
+            for (i = 0; i < n; i++) {
+                for (j = 0; j < r; j++) {
+                    max[i][j] = rand() % (k + 1);
+                    alloc[i][j] = rand() % (max[i][j] + 1);
+                }
+            }
 
+            for (j = 0; j < r; j++) {
+                avail[j] = rand() % (k + 1);
+            }
+            break;
+        default:
+            printf("Invalid choice.\n");
+            return 1;
+    }
+
+    show();
+    cal();
+
+    return 0;
 }
 
-void input() //implement the input function
-
+void input() // Implement the input function
 {
+    int i, j;
 
-     int i,j;
+    printf("Enter the no of Processes: ");
+    scanf("%d", &n);
+    printf("Enter the no of resources instances: ");
+    scanf("%d", &r);
 
-     printf("Enter the no of Processes\t");
+    printf("Enter the Max Matrix\n");
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < r; j++) {
+            scanf("%d", &max[i][j]);
+        }
+    }
 
-     scanf("%d",&n);
+    printf("Enter the Allocation Matrix\n");
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < r; j++) {
+            scanf("%d", &alloc[i][j]);
+        }
+    }
 
-     printf("Enter the no of resources instances\t");
-
-     scanf("%d",&r);
-
-     printf("Enter the Max Matrix\n");
-
-     for(i=0;i<n;i++)
-
-     {
-
-          for(j=0;j<r;j++)
-
-          {
-
-          scanf("%d",&max[i][j]);
-
-     }}
-
-     printf("Enter the Allocation Matrix\n");
-
-     for(i=0;i<n;i++)
-
-     {
-
-          for(j=0;j<r;j++)
-
-          {
-
-          scanf("%d",&alloc[i][j]);
-
-     }}
-
-     printf("Enter the available Resources\n");
-
-     for(j=0;j<r;j++)
-
-     {
-
-          scanf("%d",&avail[j]);
-
-}}
+    printf("Enter the available Resources\n");
+    for (j = 0; j < r; j++) {
+        scanf("%d", &avail[j]);
+    }
+}
 
 void show() //show the table of the model
 

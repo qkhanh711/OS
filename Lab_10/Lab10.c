@@ -88,6 +88,6 @@ for(i=0;i<n;i++)
 
      printf("\nThe Average Waiting time is -- %f ",awt/n);
 
-     getch();
+     getc();
 
 }
